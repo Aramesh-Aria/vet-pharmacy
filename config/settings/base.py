@@ -37,7 +37,7 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 # --------------------------------------------------------------------------
 DJANGO_APPS = [
     # Custom admin config swaps in our dashboard-equipped AdminSite.
-    "core.admin_apps.VetAdminConfig",
+    "apps.core.admin_apps.VetAdminConfig",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -53,16 +53,16 @@ THIRD_PARTY_APPS = [
 # Local apps. The custom user model (accounts) MUST be installed and its
 # AUTH_USER_MODEL set before the very first migration (ADR-0004).
 LOCAL_APPS = [
-    "accounts",
-    "core",
-    "notifications",
-    "catalog",
-    "animals",
-    "pharmacy",
-    "appointments",
-    "records",
-    "payments",
-    "pages",
+    "apps.accounts",
+    "apps.core",
+    "apps.notifications",
+    "apps.catalog",
+    "apps.animals",
+    "apps.pharmacy",
+    "apps.appointments",
+    "apps.records",
+    "apps.payments",
+    "apps.pages",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -97,7 +97,7 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "core.context_processors.site_chrome",
+                "apps.core.context_processors.site_chrome",
             ],
         },
     },
@@ -179,11 +179,11 @@ PAYMENTS_ONLINE_ENABLED = env.bool("PAYMENTS_ONLINE_ENABLED", default=False)
 # Backend used when online is OFF (launch default) and when it is ON.
 PAYMENTS_BACKEND = env(
     "PAYMENTS_BACKEND",
-    default="payments.backends.manual.ManualPickupBackend",
+    default="apps.payments.backends.manual.ManualPickupBackend",
 )
 PAYMENTS_ONLINE_BACKEND = env(
     "PAYMENTS_ONLINE_BACKEND",
-    default="payments.backends.zarinpal.ZarinpalBackend",
+    default="apps.payments.backends.zarinpal.ZarinpalBackend",
 )
 
 # Absolute base URL used to build the gateway callback (set per environment).
@@ -201,10 +201,10 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="noreply@example.ir")
 
 # SMS gateway — Iran-reachable only, never Twilio (ADR-0003). Console in dev;
-# set to notifications.backends.kavenegar.KavenegarSMSBackend in prod.
+# set to apps.notifications.backends.kavenegar.KavenegarSMSBackend in prod.
 SMS_BACKEND = env(
     "SMS_BACKEND",
-    default="notifications.backends.console.ConsoleSMSBackend",
+    default="apps.notifications.backends.console.ConsoleSMSBackend",
 )
 SMS_API_KEY = env("SMS_API_KEY", default="")
 SMS_SENDER = env("SMS_SENDER", default="")

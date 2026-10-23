@@ -5,22 +5,22 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
-from pages.sitemaps import SITEMAPS
-from pages.views import healthz, robots_txt
+from apps.pages.sitemaps import SITEMAPS
+from apps.pages.views import healthz, robots_txt
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("animals/", include("animals.urls")),
-    path("shop/", include("pharmacy.urls")),
-    path("clinic/", include("appointments.urls")),
-    path("payments/", include("payments.urls")),
-    path("c/", include("catalog.urls")),
+    path("accounts/", include("apps.accounts.urls")),
+    path("animals/", include("apps.animals.urls")),
+    path("shop/", include("apps.pharmacy.urls")),
+    path("clinic/", include("apps.appointments.urls")),
+    path("payments/", include("apps.payments.urls")),
+    path("c/", include("apps.catalog.urls")),
     # SEO + ops
     path("sitemap.xml", sitemap, {"sitemaps": SITEMAPS}, name="sitemap"),
     path("robots.txt", robots_txt, name="robots"),
     path("healthz", healthz, name="healthz"),
-    path("", include("pages.urls")),
+    path("", include("apps.pages.urls")),
 ]
 
 if settings.DEBUG:
